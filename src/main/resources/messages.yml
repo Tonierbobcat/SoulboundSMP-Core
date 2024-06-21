@@ -1,0 +1,9 @@
+config-version: 1.0
+
+# <soul> Is the name of the Soul
+
+soul-pickup: "&a+1 &f<soul>"
+soul-pickup-while-negative: "&a+1 &f<soul>"
+soul-slot-full: "&c<soul> was destroyed"
+converted-to-positive-soul: "&a<soul> was converted to a positive soul"
+death-message: "&cYour souls were converted into negative souls"

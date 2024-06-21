@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SMPCore-0.1">
+    <output-path>$PROJECT_DIR$/test server/plugins</output-path>
+    <root id="archive" name="SMPCore-0.1.jar">
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/com/loficostudios/soulboundplugin/depends/acf-paper-0.5.1-20240504.183610-34.jar" path-in-jar="/" />
+      <element id="module-output" name="soulboundplugin" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,54 @@
+# ©Tonierbobcat https://github.com/Tonierbobcat/Tonierbobcat
+config-version: 1.0
+
+
+
+# When true. players that pickup soul will remove thier negative souls of that type
+# for example. player has 3 negative "Souls of Argo" they get slowness
+# but if they pick up a normal "Soul of Argo" they will have 2 negative "Souls of Argo
+# once at 1 negative "Souls of Argo" if the player picks up another soul of that type,
+# it will convert that soul to 1 positive "Soul of Argo"
+# default true
+soul-pickup-conversion: true
+
+play-pickup-sound:
+  enabled: true
+  
+  # Must be one of these values https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  sound: ENTITY_ENDER_EYE_DEATH
+  volume: 1
+  pitch: 1.5
+
+# Disabled the effect particles
+hide-effect-particles: true
+
+drop-logic:
+  # When false players cannot pickup the souls they drop when they die
+  pickup-own: false
+  
+  # When TRUE player only drops souls when killed by another player
+  # default true
+  drop-when-killed: true
+  
+  # Does player drop 1 of each soul
+  # default false (The plugin randomly chooses a soul to drop)
+  drop-all-soul-fragments: false
+  
+  # Do soul(s) spread out when dropped?
+  drop-random-offset: true
+
+mobs:
+  # DON'T CHANGE FROM TRUE
+  mobs-drop-souls: true
+  
+  # What is the drop chance 1 = 100%
+  # default 0.75 (75%)
+  drop-chance: 0.75
+  
+  # Do Slimes decrease probability
+  # This is to counteract players from "farming souls"
+  slimes-decrease-probablity: true
+  
+  # By how much? 1 = 100%
+  # default 0.5 (50%)
+  slime-probablity-decrease: 0.5
