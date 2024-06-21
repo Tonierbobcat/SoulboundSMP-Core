@@ -84,6 +84,8 @@ public class PlayerDeathListener implements Listener {
                 killer,
                 player);
 
-        profile.setBoolMap(randomSoulFragment.getId(), true);
+        for (SoulFragment soulFragment : profile.getPlayersCurrentSoulFragments()) {
+            profile.setBoolMap(soulFragment.getId(), true);
+        }
     }
 }

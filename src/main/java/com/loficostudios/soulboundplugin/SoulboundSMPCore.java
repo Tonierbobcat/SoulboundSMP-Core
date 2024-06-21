@@ -7,19 +7,27 @@
 
 package com.loficostudios.soulboundplugin;
 
-import co.aikar.commands.PaperCommandManager;
+import com.loficostudios.melodyapi.libs.boostedyaml.YamlDocument;
+import com.loficostudios.melodyapi.utils.SimpleColor;
 import com.loficostudios.melodyapi.utils.SimpleDocument;
-import com.loficostudios.soulboundplugin.commands.SoulboundSMPCommand;
 import com.loficostudios.soulboundplugin.fragment.SoulFragment;
 import com.loficostudios.soulboundplugin.listeners.*;
 import com.loficostudios.soulboundplugin.managers.FragmentManager;
 import com.loficostudios.soulboundplugin.managers.ProfileManager;
-import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.arguments.*;
 import lombok.Getter;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class SoulboundSMPCore extends JavaPlugin {
@@ -36,25 +44,60 @@ public final class SoulboundSMPCore extends JavaPlugin {
     @Getter
     private final FragmentManager fragmentManager = new FragmentManager(profileManager);
 
+
+
     @Override
     public void onEnable() {
         instance = this;
 
         initializeMelody();
 
-        PaperCommandManager manager = new PaperCommandManager(this);
+        //PaperCommandManager manager = new PaperCommandManager(this);
 
         loadConfigFiles();
 
-        manager.registerDependency(FragmentManager.class, fragmentManager);
-        manager.registerDependency(ProfileManager.class, profileManager);
+        //manager.registerDependency(FragmentManager.class, fragmentManager);
+        //manager.registerDependency(ProfileManager.class, profileManager);
 
-        manager.getCommandCompletions().registerAsyncCompletion("soulfragments", c -> {
-            //return generatorManager.getGenerators().stream().map(generator -> generator.getGeneratorUUID().toString()).collect(Collectors.toList());
-            return fragmentManager.getSoulFragments().stream().map(SoulFragment::getId).collect(Collectors.toList());
-        });
+        //
 
-        manager.registerCommand(new SoulboundSMPCommand());
+        //manager.getCommandCompletions().registerAsyncCompletion("soulfragments", c -> {
+        //    return fragmentManager.getSoulFragments().stream().map(SoulFragment::getId).collect(Collectors.toList());
+        //});
+
+        //manager.registerCommand(new SoulboundSMPCommand());
+
+        new CommandAPICommand("addsoul")
+                /*.withArguments(new ListArgumentBuilder<String>("souls")
+                        .allowDuplicates(false)
+                        .withList(fragmentManager.getSoulFragments().stream().map(SoulFragment::getId).collect(Collectors.toList()))
+                        .withStringMapper().buildGreedy())*/
+                .withArguments(new StringArgument("soul")
+                        .replaceSuggestions(ArgumentSuggestions.strings(info -> fragmentManager.getSoulFragments().stream().map(SoulFragment::getId).toArray(String[]::new))))
+                .executesPlayer((player, args) -> {
+                    SoulFragment soulFragment = fragmentManager.getSoulFragmentById(Objects.requireNonNull(args.get("soul")).toString());
+
+                    if (soulFragment != null) {
+                        profileManager.getProfile(player.getUniqueId()).ifPresent(profile -> {
+                            profile.addSoulFragmentById(soulFragment.getId());
+                        });
+                    } else {
+                        player.sendMessage(SimpleColor.deserialize("&cInvalid soul ID"));
+                    }
+                })
+                .register();
+
+        new CommandAPICommand("soullist")
+                .executesPlayer((player, args) -> {
+                    player.sendMessage(SimpleColor.deserialize("&aAvailable Soul Fragments:"));
+                    fragmentManager.getSoulFragments().forEach(soulFragment -> {
+
+                        player.spigot().sendMessage(
+                                new ComponentBuilder(SimpleColor.deserialize("&f- &f" +  soulFragment.getDisplayName() + " &8ID: "  + soulFragment.getId()))
+                                        .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/addsoul " + soulFragment.getId())).create());
+                    });
+                })
+                .register();
 
         AntiNegativePotion.register();
 
@@ -68,6 +111,7 @@ public final class SoulboundSMPCore extends JavaPlugin {
         }.runTaskTimer(this, 0, 10); // Run every second (20 ticks)*/
 
         registerEvents();
+
     }
 
     @Override
@@ -88,9 +132,9 @@ public final class SoulboundSMPCore extends JavaPlugin {
 
     private void loadConfigFiles() {
         //When create a config files. when you are loading it directly from resources you can leave file location null
-        configFile = SimpleDocument.create(this,"config.yml", null);
-        soulFragmentSettings = SimpleDocument.create(this,"soulfragments.yml", null);
-        messageFile = SimpleDocument.create(this,"messages.yml", null);
+        configFile = SimpleDocument.create(this,"config.yml");
+        soulFragmentSettings = SimpleDocument.create(this,"soulfragments.yml");
+        messageFile = SimpleDocument.create(this,"messages.yml");
     }
 
     private void initializeMelody() {
@@ -99,7 +143,4 @@ public final class SoulboundSMPCore extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
     }
-
-
-
 }

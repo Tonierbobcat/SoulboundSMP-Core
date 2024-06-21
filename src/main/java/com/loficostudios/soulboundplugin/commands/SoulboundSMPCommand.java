@@ -7,8 +7,6 @@
 
 package com.loficostudios.soulboundplugin.commands;
 
-import co.aikar.commands.BaseCommand;
-import co.aikar.commands.annotation.*;
 import com.loficostudios.melodyapi.utils.SimpleColor;
 import com.loficostudios.soulboundplugin.fragment.SoulFragment;
 import com.loficostudios.soulboundplugin.SoulboundSMPCore;
@@ -23,7 +21,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-@CommandAlias("soulboundsmp|sbscore")
+/*@CommandAlias("soulboundsmp|sbscore")
 public class SoulboundSMPCommand extends BaseCommand {
 
 	@Dependency
@@ -105,4 +103,4 @@ public class SoulboundSMPCommand extends BaseCommand {
 			});
 		}
 	}
-}
+}//*/

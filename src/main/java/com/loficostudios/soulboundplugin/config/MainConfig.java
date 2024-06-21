@@ -7,8 +7,8 @@
 
 package com.loficostudios.soulboundplugin.config;
 
+import com.loficostudios.melodyapi.libs.boostedyaml.YamlDocument;
 import com.loficostudios.soulboundplugin.SoulboundSMPCore;
-import dev.dejvokep.boostedyaml.YamlDocument;
 
 public class MainConfig {
 
@@ -56,5 +56,4 @@ public class MainConfig {
         public static String CONVERTED_TO_POSITIVE_SOUL = messages.getString("converted-to-positive-soul");
         public static String DEATH_MESSAGE = messages.getString("death-message");
     }
-
 }

@@ -1,7 +1,4 @@
-# ©Tonierbobcat https://github.com/Tonierbobcat/Tonierbobcat
 config-version: 1.0
-
-
 
 # When true. players that pickup soul will remove thier negative souls of that type
 # for example. player has 3 negative "Souls of Argo" they get slowness

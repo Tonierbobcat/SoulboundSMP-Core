@@ -53,7 +53,7 @@ private final ProfileManager profileManager;
             if ("negativePotion".equals(id)) {
                 // Perform actions accordingly
                 // For example, removing the item and activating a potion
-                player.getInventory().remove(itemStack);
+                player.getInventory().removeItem(itemStack);
                 activatePotion(player);
             }
         }
@@ -73,8 +73,7 @@ private final ProfileManager profileManager;
                 1.5f
         );
 
-        player.sendMessage(ChatColor.GREEN + "You reset your negetive souls!");
-
+        player.sendMessage(SimpleColor.deserialize("&aYou reset your negative souls!"));
     }
 
     private void removePlayersNegativeEffects(Player player) {

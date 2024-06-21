@@ -2,4 +2,4 @@ name: SoulboundSMPCore
 version: '${project.version}'
 main: com.loficostudios.soulboundplugin.SoulboundSMPCore
 api-version: '1.20'
-depend: [MelodyAPI]
+depend: [MelodyAPI, CommandAPI]

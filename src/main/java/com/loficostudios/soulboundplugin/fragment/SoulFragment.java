@@ -7,11 +7,11 @@
 
 package com.loficostudios.soulboundplugin.fragment;
 
+import com.loficostudios.melodyapi.libs.boostedyaml.YamlDocument;
 import com.loficostudios.melodyapi.utils.SimpleColor;
 import com.loficostudios.soulboundplugin.SoulboundSMPCore;
 import com.loficostudios.soulboundplugin.config.MainConfig;
 import com.loficostudios.soulboundplugin.utils.Metadata;
-import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.bukkit.Location;
